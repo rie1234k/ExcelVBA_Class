@@ -148,7 +148,7 @@ End Function
 'ファイルをリンクを更新せずに読み取り専用で開く
 Public Function NoUpdateLinksReadOnlyOpen() As Workbook
 
-    Set NoUpdateLinksOpen = Workbooks.Open(FileName:=filepath_, UpdateLinks:=False, ReadOnly:=True)
+    Set NoUpdateLinksReadOnlyOpen = Workbooks.Open(FileName:=filepath_, UpdateLinks:=False, ReadOnly:=True)
 
 
 End Function
