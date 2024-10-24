@@ -9,8 +9,6 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'プログレスバーの設定をするクラスモジュール
-
 Private myform_ As Object
 
 
@@ -34,7 +32,6 @@ Dim Max As Long
 Dim GaugeCtr As Long
 Dim WidthParcent As Single
 
-    
     myform_.Label1.Caption = Messege
      
     Max = myform_.Label1.Width
@@ -72,14 +69,12 @@ Dim WidthParcent As Single
     
     myform_.Repaint
     
-    
-    
 End Sub
 
 'ユーザーフォーム（プログレスバー）を表示
 Public Sub ShowForm()
 
-myform_.Show vbModeless
+    myform_.Show vbModeless
 
 
 End Sub
@@ -87,7 +82,7 @@ End Sub
 'ユーザーフォーム（プログレスバー）を閉じる
 Public Sub UnloadForm()
 
-Unload myform_
+    Unload myform_
 
 End Sub
 
@@ -103,27 +98,11 @@ End Property
 Public Property Let Message(ByVal NewMessage As String)
 
     myform_.Label1.Caption = NewMessage
-    
     myform_.Repaint
 
 
 End Property
-'ユーザーフォーム（プログレスバー）のタイトルを取得
-Public Property Get TitleCaption() As String
 
-   TitleCaption = myform_.Caption
-   
-End Property
-
-'ユーザーフォーム（プログレスバー）のメッセージを設定
-Public Property Let TitleCaption(ByVal NewTitleCaption As String)
-
-    myform_.Caption = NewTitleCaption
-    
-    myform_.Repaint
-
-
-End Property
 'ユーザーフォーム（プログレスバー)の表示を待つ
 Public Sub FinalWait()
 

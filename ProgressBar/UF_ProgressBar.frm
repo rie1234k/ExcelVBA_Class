@@ -13,12 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
-
-
 Option Explicit
-
-
 
 Private Sub UserForm_Initialize()
     
@@ -57,10 +52,9 @@ Dim WinData(3) As Long
         WinData(2) = .Width
         WinData(3) = .Height
 
-
     End With
 
-    Dim FormData(3) As Long
+Dim FormData(3) As Long
 
     With Me
 
