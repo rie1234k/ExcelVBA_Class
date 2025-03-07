@@ -9,12 +9,12 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Private WithEvents ControlSet_TextBox As MSForms.TextBox 'ここをコントロール部品に合わせてラベルやテキストボックスに変更
+Private WithEvents ControlSet_TextBox As MSForms.TextBox 'ここを部品に合わせて変更する
 Attribute ControlSet_TextBox.VB_VarHelpID = -1
 Private WithEvents ControlSet_CommandButton As MSForms.CommandButton 'ここをコントロール部品に合わせてラベルやテキストボックスに変更
 Attribute ControlSet_CommandButton.VB_VarHelpID = -1
-Private ControlName As String  'コントロール名称
-Private MyForm As Object
+Private ControlName As String  '部品名称
+Private MyForm As Object  'フォーム（Objectとしないと作動しない）
 
 
 '各部品ごとに設定する
@@ -51,11 +51,11 @@ End Sub
 
 Private Sub ControlSet_TextBox_Change()
 
-    If Len(MyForm.Controls(ControlName).Value) > 4 Then
+    If Len(ControlSet_TextBox.Value) > 4 Then
     
         MsgBox "桁数の制限を超えています。"
         
-        MyForm.Controls(ControlName).Value = Left(MyForm.Controls(ControlName).Value, 4)
+        ControlSet_TextBox.Value = Left(ControlSet_TextBox.Value, 4)
         
     End If
     

@@ -15,13 +15,14 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private ControlArray() As ControlEvents  'Form表示中の間、有効にする
-
+Private ControlArray() As ControlEvents
 Private Sub CB_Close_Click()
     
     Unload Me
     
 End Sub
+
+
 
 Private Sub UserForm_Initialize()
 
@@ -106,6 +107,7 @@ ErrUbound:
 
     If Err.Number <> 9 Then
         
+        'エラー番号9以外の時はエラー表示
         Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
     
     End If
