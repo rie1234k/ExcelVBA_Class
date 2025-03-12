@@ -15,7 +15,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private ControlArray() As ControlEvents
+Private ClassControlCollection As Collection
 Private Sub CB_Close_Click()
     
     Unload Me
@@ -26,93 +26,45 @@ End Sub
 
 Private Sub UserForm_Initialize()
 
-Dim myControl As Object
+Dim myControl As msforms.Control
+Dim ClassControl As ControlEvents
+
+
+    Set ClassControlCollection = New Collection
+    
 
     For Each myControl In Me.Controls
         
-        'コントロールごとに設定
+        '部品ごとに設定
         Select Case True
         
             Case myControl.Name Like "TextBox*"
-            
-                
-                '配列の設定
-                If isEmptyArray(ControlArray) Then
-                    
-                    ReDim ControlArray(0)
-                
-                Else
-                
-                    ReDim Preserve ControlArray(UBound(ControlArray) + 1)
-                
-                End If
                 
                 
-                'コントロールごとに、インスタンス化
-                Set ControlArray(UBound(ControlArray)) = New ControlEvents
+                'インスタンス化
+                Set ClassControl = New ControlEvents
                 
-                'コントロールタイプに合わせて、コントロールを設定
-                ControlArray(UBound(ControlArray)).SetControl_TextBox myControl, myControl.Name, Me
+                'タイプに合わせて、部品を設定
+                Set ClassControl.SetControl_TextBox = myControl
+                
+                'コレクションに追加
+                ClassControlCollection.Add ClassControl
                 
                 myControl.IMEMode = fmIMEModeOff
                 
             
             Case myControl.Name Like "CommandButton*"
             
-                '配列の設定
-                If isEmptyArray(ControlArray) Then
                 
-                    ReDim ControlArray(0)
+                Set ClassControl = New ControlEvents
                 
-                Else
-                
-                    ReDim Preserve ControlArray(UBound(ControlArray) + 1)
-                
-                End If
-                
-                
-                'コントロールごとに、インスタンス化
-                Set ControlArray(UBound(ControlArray)) = New ControlEvents
-                
-                'コントロールタイプに合わせて、コントロールを設定
-                ControlArray(UBound(ControlArray)).SetControl_CommandButton myControl, myControl.Name, Me
-
-      
+                Set ClassControl.SetControl_CommandButton = myControl
+                 
+                ClassControlCollection.Add ClassControl
                         
         End Select
-        
-        
+             
    Next myControl
-   
-    
+     
 
 End Sub
-
-
-
-Public Function isEmptyArray(v() As ControlEvents) As Boolean
-
-Dim tmp As Long
-
-
-On Error GoTo ErrUbound:
-
-    tmp = UBound(v)
-    isEmptyArray = False
-    
-    Exit Function
-
-
-ErrUbound:
-
-    If Err.Number <> 9 Then
-        
-        'エラー番号9以外の時はエラー表示
-        Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext
-    
-    End If
-    
-    isEmptyArray = True
-
-
-End Function
